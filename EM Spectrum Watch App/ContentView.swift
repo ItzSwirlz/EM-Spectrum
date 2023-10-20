@@ -1,0 +1,24 @@
+//
+//  ContentView.swift
+//  EM Spectrum Watch App
+//
+//  Created by Joshua Peisach on 10/20/23.
+//
+
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        VStack {
+            Image(systemName: "globe")
+                .imageScale(.large)
+                .foregroundStyle(.tint)
+            Text("Hello, world!")
+        }
+        .padding()
+    }
+}
+
+#Preview {
+    ContentView()
+}
