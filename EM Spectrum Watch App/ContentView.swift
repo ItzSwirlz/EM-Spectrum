@@ -31,9 +31,12 @@ struct WaveView: View {
                 // TODO: Show the color
                 Text("Visible Light")
             }
-            else if(crownValue > -7 && crownValue < -3) {
+            else if(crownValue > -6 && crownValue < -3) {
                 Text("Infrared Wave")
-            } else if(crownValue > -3) {
+            } else if(crownValue > -3 && crownValue < 3) {
+                Text("Microwave")
+            }
+            else if(crownValue > 3) {
                 Text("Radio Wave")
             }
         }
