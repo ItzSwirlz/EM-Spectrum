@@ -51,7 +51,7 @@ struct WaveView: View {
             Text(formattedWavelength).focusable().digitalCrownRotation($crownValue, from: -16.0, through: 3.0, sensitivity: .low).fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: false)
 
             // TODO: there's probably a way to do the formatting without neding another formattedValue var
-            let frequency = NSDecimalNumber(value: pow(3, 8) / pow(10, crownValue))
+            let frequency = NSDecimalNumber(value: (3 * pow(10, 8)) / pow(10, crownValue))
             var formattedFrequency: String {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .scientific
@@ -65,7 +65,7 @@ struct WaveView: View {
             Text(formattedFrequency).fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: false)
 
 
-            let photonEnergy = NSDecimalNumber(value: pow(6.63, -34) * frequency.doubleValue)
+            let photonEnergy = NSDecimalNumber(value: (6.63 * pow(10, -34)) * frequency.doubleValue)
             var formattedPhotonEnergy: String {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .scientific
