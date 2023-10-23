@@ -24,6 +24,30 @@ struct WaveView: View {
                 let formattedValue = formatter.string(from: wavelength)
                 return "Wavelength: \(formattedValue.unsafelyUnwrapped) m"
             }
+        
+            // TODO: check these values, find a better way to do this
+            if(crownValue < -11) {
+                Text("Gamma Ray").dynamicTypeSize(.xxxLarge)
+            }
+            else if(crownValue > -11 && crownValue < -8) {
+                Text("X Ray").dynamicTypeSize(.xxxLarge)
+            }
+            else if(crownValue > -8 && crownValue < -7) {
+                Text("Ultraviolet Light").dynamicTypeSize(.xxxLarge)
+            }
+            else if(crownValue > -7 && crownValue < -6) {
+                // TODO: Show the color
+                Text("Visible Light").dynamicTypeSize(.xxxLarge)
+            }
+            else if(crownValue > -6 && crownValue < -3) {
+                Text("Infrared Wave").dynamicTypeSize(.xxxLarge)
+            } else if(crownValue > -3 && crownValue < 3) {
+                Text("Microwave").dynamicTypeSize(.xxxLarge)
+            }
+            else if(crownValue > 3) {
+                Text("Radio Wave").dynamicTypeSize(.xxxLarge)
+            }
+
             Text(formattedWavelength).focusable().digitalCrownRotation($crownValue, from: -16.0, through: 3.0, sensitivity: .low).fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: false)
 
             // TODO: there's probably a way to do the formatting without neding another formattedValue var
@@ -40,28 +64,19 @@ struct WaveView: View {
             }
             Text(formattedFrequency).fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: false)
 
-            // TODO: check these values
-            if(crownValue < -11) {
-                Text("Gamma Ray")
+
+            let photonEnergy = NSDecimalNumber(value: pow(6.63, -34) * frequency.doubleValue)
+            var formattedPhotonEnergy: String {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .scientific
+                formatter.usesSignificantDigits = true
+                formatter.minimumSignificantDigits = 3
+                formatter.maximumSignificantDigits = 3
+
+                let formattedValue = formatter.string(from: photonEnergy)
+                return "Photon Energy: \(formattedValue.unsafelyUnwrapped) J"
             }
-            else if(crownValue > -11 && crownValue < -8) {
-                Text("X Ray")
-            }
-            else if(crownValue > -8 && crownValue < -7) {
-                Text("Ultraviolet Light")
-            }
-            else if(crownValue > -7 && crownValue < -6) {
-                // TODO: Show the color
-                Text("Visible Light")
-            }
-            else if(crownValue > -6 && crownValue < -3) {
-                Text("Infrared Wave")
-            } else if(crownValue > -3 && crownValue < 3) {
-                Text("Microwave")
-            }
-            else if(crownValue > 3) {
-                Text("Radio Wave")
-            }
+            Text(formattedPhotonEnergy).fixedSize(horizontal: true, vertical: false).dynamicTypeSize(.xSmall)
         }
         .padding()
     }
