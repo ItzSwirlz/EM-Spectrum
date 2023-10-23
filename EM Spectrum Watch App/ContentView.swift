@@ -14,8 +14,31 @@ struct WaveView: View {
         VStack {
             // Let the crownValue represent the exponent (10 raised to the x)
             // This gives us easy numbers to deal with
-            // TODO: show this in scientific notation
-            Text("Wavelength: \(pow(10, crownValue), specifier: "%.16f") m").focusable().digitalCrownRotation($crownValue, from: -16.0, through: 3.0, sensitivity: .low)
+            let wavelength = NSDecimalNumber(value: pow(10, crownValue))
+            var formattedWavelength: String {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .scientific
+                formatter.usesSignificantDigits = true
+                formatter.maximumSignificantDigits = 3
+
+                let formattedValue = formatter.string(from: wavelength)
+                return "Wavelength: \(formattedValue.unsafelyUnwrapped) m"
+            }
+            Text(formattedWavelength).focusable().digitalCrownRotation($crownValue, from: -16.0, through: 3.0, sensitivity: .low).fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: false)
+
+            // TODO: there's probably a way to do the formatting without neding another formattedValue var
+            let frequency = NSDecimalNumber(value: pow(3, 8) / pow(10, crownValue))
+            var formattedFrequency: String {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .scientific
+                formatter.usesSignificantDigits = true
+                formatter.minimumSignificantDigits = 3
+                formatter.maximumSignificantDigits = 3
+
+                let formattedValue = formatter.string(from: frequency)
+                return "Frequency: \(formattedValue.unsafelyUnwrapped) Hz"
+            }
+            Text(formattedFrequency).fixedSize(horizontal: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, vertical: false)
 
             // TODO: check these values
             if(crownValue < -11) {
